@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  db:
+    container_name: vote-server-test-db
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: voting
+      POSTGRES_USER: main
+      POSTGRES_PASSWORD: mysql_strong_password
+    ports:
+      - 5432:5432
