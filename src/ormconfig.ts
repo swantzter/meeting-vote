@@ -5,6 +5,10 @@ import { join as pjoin } from 'path'
 
 import Session from './db/entities/session'
 import Question from './db/entities/question'
+import User from './db/entities/user'
+import Vote from './db/entities/vote'
+import Voter from './db/entities/voter'
+import VoterBlock from './db/entities/voter-block'
 
 const config: ConnectionOptions = {
   type: 'postgres',
@@ -17,7 +21,7 @@ const config: ConnectionOptions = {
   logging: true,
   logger: 'advanced-console',
   cache: false,
-  entities: [Session, Question],
+  entities: [Session, Question, User, Vote, Voter, VoterBlock],
 
   migrations: [pjoin(__dirname, '/db/migrations/*{.js,.ts}')],
   cli: {

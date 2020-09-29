@@ -2,6 +2,7 @@ import { Arg, FieldResolver, ID, Mutation, Publisher, PubSub, Resolver, Resolver
 import { pool } from '../../db'
 import Session from '../../db/entities/session'
 import Question from '../../db/entities/question'
+import Vote from '../../db/entities/vote'
 
 @Resolver(Question)
 export default class QuestionResolver {
@@ -78,6 +79,14 @@ export default class QuestionResolver {
     const sessionsRepo = connection.getRepository(Session)
 
     return sessionsRepo.findOne(question.sessionId) as Promise<Session>
+  }
+
+  @FieldResolver(returns => [Vote])
+  async votes (@Root() question: Question): Promise<Vote[]> {
+    const connection = await this.pool
+    const voteRepo = connection.getRepository(Vote)
+
+    return voteRepo.find({ where: { question } })
   }
 
   @Subscription({

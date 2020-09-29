@@ -54,6 +54,11 @@
       "@typescript-eslint/eslint-plugin"
     ]
   },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "dependencies": {
     "apollo-server": "^2.18.1",
     "dotenv": "^8.2.0",

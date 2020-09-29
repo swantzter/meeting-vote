@@ -1,6 +1,7 @@
 import { Field, ID, ObjectType } from 'type-graphql'
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import Question from './question'
+import User from './user'
 
 @Entity()
 @ObjectType()
@@ -16,4 +17,7 @@ export default class Session {
   @OneToMany(type => Question, question => question.session)
   @Field(type => [Question])
   questions!: Question[]
+
+  @ManyToMany(type => User, user => user.sessions)
+  admins!: User[]
 }
