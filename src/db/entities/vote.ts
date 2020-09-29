@@ -1,14 +1,8 @@
 import { Field, GraphQLTimestamp as Timestamp, ID, ObjectType, registerEnumType } from 'type-graphql'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { DateTransformer } from '../helpers'
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { VoteOptions } from '../../helpers/enums'
 import Question from './question'
 import Voter from './voter'
-
-export enum VoteOptions {
-  YES = 'yes',
-  NO = 'no',
-  ABSTAIN = 'abstain'
-}
 
 registerEnumType(VoteOptions, {
   name: 'VoteOptions'
@@ -25,7 +19,7 @@ export default class Vote {
   @Field(type => VoteOptions)
   vote!: VoteOptions
 
-  @Column('timestamp', { transformer: DateTransformer })
+  @CreateDateColumn({ type: 'timestamp' })
   @Field(type => Timestamp)
   createdAt!: Date
 
@@ -41,5 +35,5 @@ export default class Vote {
   voter!: Voter
 
   @Column()
-  voterId!: number
+  voterId!: string
 }

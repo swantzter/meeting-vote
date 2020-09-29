@@ -7,6 +7,7 @@ const server = new ApolloServer({
   schema,
   playground: true,
   context
+  // cors: {} // TODO https://github.com/expressjs/cors#configuration-options
 })
 
 // Start the server

@@ -27,6 +27,8 @@
     "@semantic-release/git": "^9.0.0",
     "@semantic-release/github": "^7.1.1",
     "@semantic-release/release-notes-generator": "^9.0.1",
+    "@types/basic-auth": "^1.1.3",
+    "@types/bcrypt": "^3.0.0",
     "@types/luxon": "^1.25.0",
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.11.2",
@@ -45,7 +47,13 @@
   "eslintConfig": {
     "rules": {
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "error"
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "vars": "all",
+          "args": "none"
+        }
+      ]
     }
   },
   "standardx": {
@@ -60,7 +68,10 @@
     }
   },
   "dependencies": {
+    "@axelspringer/graphql-google-pubsub": "^2.1.0",
     "apollo-server": "^2.18.1",
+    "basic-auth": "^2.0.1",
+    "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "graphql": "^15.3.0",
     "luxon": "^1.25.0",

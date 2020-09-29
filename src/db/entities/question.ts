@@ -1,8 +1,8 @@
 import { Field, ID, ObjectType, GraphQLTimestamp as Timestamp } from 'type-graphql'
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-import { DateTransformer } from '../helpers'
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import Session from './session'
 import Vote from './vote'
+import Voter from './voter'
 
 @Entity()
 @ObjectType()
@@ -15,11 +15,11 @@ export default class Question {
   @Field()
   question!: string
 
-  @Column('timestamp', { nullable: true, transformer: DateTransformer })
+  @Column('timestamp', { nullable: true })
   @Field(type => Timestamp, { nullable: true })
   openedAt?: Date
 
-  @Column('timestamp', { nullable: true, transformer: DateTransformer })
+  @Column('timestamp', { nullable: true })
   @Field(type => Timestamp, { nullable: true })
   closedAt?: Date
 
@@ -33,4 +33,9 @@ export default class Question {
 
   @OneToMany(type => Vote, vote => vote.question)
   votes!: Vote[]
+
+  @ManyToMany(type => Voter)
+  @JoinTable({ name: 'voter_block' })
+  @Field(type => [Voter])
+  blockedVoters!: Voter[]
 }
