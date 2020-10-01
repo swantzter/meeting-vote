@@ -1,6 +1,19 @@
 version: "3.7"
 
 services:
+  # web:
+  #   container_name: meeting-vote-server-main
+  #   build: server-main
+  #   environment:
+  #     DB_DATABASE: voting
+  #     DB_HOST: db
+  #     DB_TYPE: postgres
+  #     DB_USER: main
+  #     DB_PASSWORD: mysql_strong_password
+  #   links:
+  #     - db
+  #   ports:
+  #     - 8080:80
   db:
     container_name: meeting-vote-db
     image: postgres:13-alpine
@@ -11,12 +24,3 @@ services:
       POSTGRES_PASSWORD: mysql_strong_password
     ports:
       - 5432:5432
-  server-main:
-    container_name: meeting-vote-server-main
-    build: server-main/
-    environment:
-      PORT: 4000
-    depends_on:
-      - db
-    ports:
-      - 4000:4000
