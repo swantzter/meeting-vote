@@ -9,3 +9,8 @@ export enum AuthLevels {
   VOTER = 'VOTER',
   AUDIENCE = 'AUDIENCE'
 }
+
+export enum Directions {
+  EARLIER = 'EARLIER',
+  LATER = 'LATER'
+}

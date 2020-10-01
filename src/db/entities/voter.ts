@@ -1,13 +1,20 @@
 import { Field, ID, ObjectType } from 'type-graphql'
-import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm'
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique } from 'typeorm'
+import Question from './question'
 import Session from './session'
 import Vote from './vote'
+import { IsAlphanumeric } from 'class-validator'
 
 @Entity()
 @ObjectType()
+@Unique('uniqueVoterPerSession', ['id', 'sessionId'])
 export default class Voter {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('increment')
+  dbId!: number
+
+  @Column()
   @Field(type => ID)
+  @IsAlphanumeric()
   id!: string
 
   // does this need to be a password hash? nah probably not
@@ -24,4 +31,7 @@ export default class Voter {
 
   @Column()
   sessionId!: string
+
+  @ManyToMany(type => Question, question => question.blockedVoters)
+  blockedFrom!: Question[]
 }

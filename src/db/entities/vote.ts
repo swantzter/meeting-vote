@@ -1,5 +1,5 @@
 import { Field, GraphQLTimestamp as Timestamp, ID, ObjectType, registerEnumType } from 'type-graphql'
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Unique } from 'typeorm'
 import { VoteOptions } from '../../helpers/enums'
 import Question from './question'
 import Voter from './voter'
@@ -10,6 +10,7 @@ registerEnumType(VoteOptions, {
 
 @Entity()
 @ObjectType()
+@Unique('oneVotePerQuestion', ['questionId', 'voterId'])
 export default class Vote {
   @PrimaryGeneratedColumn('increment')
   @Field(type => ID)
@@ -36,4 +37,6 @@ export default class Vote {
 
   @Column()
   voterId!: string
+
+  sessionId?: string
 }

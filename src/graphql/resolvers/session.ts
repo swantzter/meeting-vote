@@ -5,6 +5,7 @@ import Question from '../../db/entities/question'
 import Session from '../../db/entities/session'
 import { AuthLevels } from '../../helpers/enums'
 import { Context } from '..'
+import Voter from '../../db/entities/voter'
 
 @Resolver(Session)
 export default class SessionResolver {
@@ -16,7 +17,7 @@ export default class SessionResolver {
     const connection = await this.pool
     const sessionsRepo = connection.getRepository(Session)
 
-    return sessionsRepo.findOne({ where: { id: sessionId } })
+    return sessionsRepo.findOne({ where: { id: sessionId }, relations: ['questions'] })
   }
 
   @Mutation(returns => Session)
@@ -40,9 +41,20 @@ export default class SessionResolver {
   @Authorized(AuthLevels.ADMIN, AuthLevels.VOTER, AuthLevels.AUDIENCE)
   @FieldResolver(returns => [Question])
   async questions (@Root() session: Session): Promise<Question[]> {
+    if (session.questions) return session.questions
     const connection = await this.pool
     const questionsRepo = connection.getRepository(Question)
 
-    return (await questionsRepo.find({ where: { session } })) ?? []
+    return await questionsRepo.find({ where: { session } })
+  }
+
+  @Authorized(AuthLevels.ADMIN)
+  @FieldResolver(returns => [Voter])
+  async voters (@Root() session: Session): Promise<Voter[]> {
+    if (session.voters) return session.voters
+    const connection = await this.pool
+    const votersRepo = connection.getRepository(Voter)
+
+    return await votersRepo.find({ where: { session } })
   }
 }

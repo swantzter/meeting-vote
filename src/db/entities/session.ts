@@ -2,6 +2,7 @@ import { Field, ID, ObjectType } from 'type-graphql'
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import Question from './question'
 import Voter from './voter'
+import { Matches } from 'class-validator'
 
 @Entity()
 @ObjectType()
@@ -12,6 +13,7 @@ export default class Session {
 
   @Column()
   @Field()
+  @Matches(/^[\w\d\s-?!]+$/i)
   name!: string
 
   @Column({ length: 60, type: 'char' })
@@ -25,5 +27,6 @@ export default class Session {
   questions!: Question[]
 
   @OneToMany(type => Voter, voter => voter.session)
+  @Field(type => [Voter])
   voters!: Voter[]
 }
