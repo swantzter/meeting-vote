@@ -1,12 +1,12 @@
 {
-  "name": "vote-server",
-  "version": "0.0.0-development",
+  "name": "meeting-vote-server-main",
+  "private": true,
+  "version": "0.1.0",
   "description": "A server for handling and distributing meeting votes",
   "main": "dist/index.js",
   "scripts": {
     "test": "BABEL_ENV=test nyc -r lcov -r text -e .ts -x test/**/* mocha -r ts-node/register test/**/*.test.ts",
     "lint": "standardx --verbose **/*.{js,ts}",
-    "semantic-release": "semantic-release",
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --rs src/index.ts",
@@ -31,6 +31,7 @@
     "dataloader": "^2.0.0",
     "dotenv": "^8.2.0",
     "graphql": "^15.3.0",
+    "lru-cache": "^6.0.0",
     "luxon": "^1.25.0",
     "pg": "^8.3.3",
     "type-graphql": "^1.0.0",
