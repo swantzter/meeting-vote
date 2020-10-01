@@ -18,7 +18,8 @@
   "homepage": "https://meeting-vote.com",
   "dependencies": {
     "tailwindcss": "^1.8.10",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-beta.12"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.3.0",
