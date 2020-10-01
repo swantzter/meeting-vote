@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   db:
-    container_name: vote-server-test-db
+    container_name: meeting-vote-db
     image: postgres:13-alpine
     restart: always
     environment:
@@ -11,3 +11,12 @@ services:
       POSTGRES_PASSWORD: mysql_strong_password
     ports:
       - 5432:5432
+  server-main:
+    container_name: meeting-vote-server-main
+    build: server-main/
+    environment:
+      PORT: 4000
+    depends_on:
+      - db
+    ports:
+      - 4000:4000
