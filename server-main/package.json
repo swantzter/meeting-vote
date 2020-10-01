@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/swantzter/vote-server/issues"
   },
-  "homepage": "https://github.com/swantzter/vote-server#readme",
+  "homepage": "https://meeting-vote.com",
   "dependencies": {
     "@axelspringer/graphql-google-pubsub": "^2.1.0",
     "apollo-server": "^2.18.1",
